@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: jiro4989/setup-nim-action@v2
+        with:
+          nim-version: '2.0.x'
+
+      - name: Install dependencies
+        run: nimble install -y --depsOnly
+
+      - name: Run tests
+        run: nimble test
